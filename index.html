@@ -98,13 +98,13 @@
       return null; // специальная клавиша
     }
 
-    var form = document.forms.calculator;
+    const form = document.forms.calculator;
 
 
-    var moneyElem = form.elements.money;
+    const moneyElem = form.elements.money;
     moneyElem.onkeypress = function(e) {
       e = e || event;
-      var chr = getChar(e);
+      const chr = getChar(e);
 
       if (e.ctrlKey || e.altKey || chr == null) return; // специальная клавиша
       if (chr < '0' || chr > '9') return false;
@@ -120,31 +120,31 @@
       event.propertyName == "value" && calculate();
     }
 
-    var capitalizationElem = form.elements.capitalization;
+    const capitalizationElem = form.elements.capitalization;
     capitalizationElem.onclick = calculate;
 
-    var monthsElem = form.elements.months;
+    const monthsElem = form.elements.months;
     monthsElem.onchange = calculate;
 
 
     function calculate() {
-      var sum = +moneyElem.value;
+      let sum = +moneyElem.value;
       if (!sum) return;
 
-      var monthlyIncrease = 0.01;
+      const monthlyIncrease = 0.01;
 
       if (!capitalizationElem.checked) {
         sum = sum * (1 + monthlyIncrease * monthsElem.value);
       } else {
 
-        for (var i = 0; i < monthsElem.value; i++) {
+        for (let i = 0; i < monthsElem.value; i++) {
           // 1000 1010 1020.1
           sum = sum * (1 + monthlyIncrease);
         }
       }
       sum = Math.round(sum);
 
-      var height = sum / moneyElem.value * 100 + 'px';
+      const height = sum / moneyElem.value * 100 + 'px';
       document.getElementById('height-after').style.height = height;
       document.getElementById('money-before').innerHTML = moneyElem.value;
       document.getElementById('money-after').innerHTML = sum;
